@@ -1,0 +1,64 @@
+src
+└── pywallet
+    ├── application
+    │   ├── dto
+    │   │   ├── transaction_dto.py
+    │   │   └── wallet_dto.py
+    │   ├── __init__.py
+    │   ├── services
+    │   │   ├── notification_service.py
+    │   │   └── payment_service.py
+    │   └── uses_case
+    │       ├── create_wallet.py
+    │       ├── deposit.py
+    │       ├── get_balance.py
+    │       ├── get_transactions.py
+    │       ├── transfer_money.py
+    │       └── withdraw.py
+    ├── domain
+    │   ├── entities
+    │   │   ├── payment.py
+    │   │   ├── transaction.py
+    │   │   ├── user.py
+    │   │   └── wallet.py
+    │   ├── events
+    │   │   ├── transacrion_created.py
+    │   │   └── wallet_updated.py
+    │   ├── exeptions
+    │   │   ├── payment_gateway.py
+    │   │   └── wallet_exceptions.py
+    │   ├── __init__.py
+    │   ├── interfaces
+    │   │   ├── password_hasher.py
+    │   │   ├── payment_gateway.py
+    │   │   └── __pycache__
+    │   │       └── password_hasher.cpython-314.pyc
+    │   ├── __pycache__
+    │   │   └── __init__.cpython-314.pyc
+    │   ├── repositories
+    │   │   ├── transaction_repository.py
+    │   │   ├── user_repository.py
+    │   │   └── wallet_repository.py
+    │   ├── services
+    │   │   └── transfer_policy.py
+    │   └── value_objects
+    │       ├── money.py
+    │       └── transaction_id.py
+    ├── infrastructure
+    │   ├── database
+    │   │   ├── connections.py
+    │   │   ├── migrations
+    │   │   └── models.py
+    │   ├── __init__.py
+    │   ├── notificaions
+    │   ├── payment
+    │   ├── persistence
+    │   ├── repositories
+    │   └── security
+    │       └── bcrypt_password_hasher.py
+    ├── __init__.py
+    ├── main.py
+    └── __pycache__
+        └── __init__.cpython-314.pyc
+
+25 directories, 37 files
