@@ -8,7 +8,7 @@ class Singleton :
 
     def __new__(cls, *args , **kwargs):
         if not cls.instance :
-            cls.instance = super().__new__(cls , *args , **kwargs)
+            cls.instance = super().__new__(cls)
         return cls.instance
 
 class PostgresHandler(Singleton) :

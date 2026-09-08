@@ -1,5 +1,6 @@
-from sqlalchemy import String , Integer
+from sqlalchemy import String , Integer , TIMESTAMP , Boolean
 from sqlalchemy.orm import DeclarativeBase , Mapped , mapped_column
+from datetime import datetime
 
 class ModelBase(DeclarativeBase) :
     pass
@@ -15,3 +16,6 @@ class UserModel(ModelBase) :
     last_name : Mapped[str] = mapped_column(String , nullable=True)
     email : Mapped[str] = mapped_column(String , nullable=True)
     phone_number : Mapped[str] = mapped_column(String , nullable=True)
+    created_at : Mapped[datetime] = mapped_column(TIMESTAMP , default = datetime.now)
+    updated_at : Mapped[datetime] = mapped_column(TIMESTAMP , default= datetime.now , onupdate=datetime.now)
+    is_active : Mapped[bool] = mapped_column(Boolean , default=True)
