@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
+from pywallet.gui.api_client import ApiClient
+
 
 class LoginView(QWidget):
     def __init__(self):
@@ -582,18 +584,39 @@ class CreateUserView(QWidget):
             return
 
         if len(password) < 6:
-            QMessageBox.warning(self, "Error", "Password must be at least 6 characters.")
+            QMessageBox.warning(
+                self,
+                "Error",
+                "Password must be at least 6 characters."
+            )
             return
 
-        print("Username:", username)
-        print("Password:", password)
-        print("First name:", firstname)
-        print("Last name:", lastname)
-        print("Email:", email)
-        print("Phone:", phone)
+        data = {
+            "username": username,
+            "password": password,
+            "first_name": firstname,
+            "last_name": lastname,
+            "email": email,
+            "phone_number": phone,
+        }
 
-        QMessageBox.information(self, "Success", "Account created successfully!")
-        self.switch_to_login()
+        response = ApiClient.create_user(data)
+
+        if response.status_code == 200:
+            QMessageBox.information(
+                self,
+                "Success",
+                "Account created successfully!"
+            )
+            self.switch_to_login()
+
+        else:
+            QMessageBox.warning(
+                self,
+                "Error",
+                response.text
+            )
+
 
     def switch_to_login(self):
         self.close()
