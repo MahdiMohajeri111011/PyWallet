@@ -1,10 +1,10 @@
 from pywallet.domain.entities.user import User
-from pywallet.domain.repositories.user_repository import UserRepository
+from pywallet.infrastructure.repositories.sqlalchemy_user_repository import SqlAlchemyUserRepository
 
 
 class CreateUser :
 
-    def __init__(self , user_repository : UserRepository):
+    def __init__(self , user_repository : SqlAlchemyUserRepository):
         self.user_repository = user_repository
 
     def execute(

@@ -1,5 +1,8 @@
 from abc import ABC , abstractmethod
 from pywallet.domain.entities.user import User
+from pywallet.infrastructure.database.models import UserModel
+from pywallet.infrastructure.database.sessions import session1
+
 
 class UserRepository(ABC) :
 
@@ -14,4 +17,8 @@ class UserRepository(ABC) :
     @abstractmethod
     def save(self , user : User):
         pass
+
+    
+
+
 

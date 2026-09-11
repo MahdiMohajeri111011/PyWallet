@@ -19,3 +19,10 @@ class SqlAlchemyUserRepository(UserRepository) :
         )
         session1.add(model)
         session1.commit()
+        session1.refresh(model)
+        return model
+    def find_by_id(self , user_id):
+        pass
+
+    def find_by_username(self , username):
+        pass

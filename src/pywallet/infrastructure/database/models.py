@@ -11,7 +11,7 @@ class UserModel(ModelBase) :
 
     id : Mapped[int] = mapped_column(Integer , primary_key=True , autoincrement=True)
     username : Mapped[str] = mapped_column(String(20) , unique=True)
-    password : Mapped[str] = mapped_column(String(30))
+    password : Mapped[str] = mapped_column(String(255))
     first_name : Mapped[str] = mapped_column(String , nullable=True)
     last_name : Mapped[str] = mapped_column(String , nullable=True)
     email : Mapped[str] = mapped_column(String , nullable=True)
