@@ -12,7 +12,7 @@ class BcryptPasswordHasher(PasswordHasher) :
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password=password_bytes , salt=salt)
         self.hashed_password = hashed_password
-        return hashed_password
+        return hashed_password.decode('UTF-8')
 
     def verify(self , password , hashed_password = None):
         if not hashed_password :
@@ -22,4 +22,6 @@ class BcryptPasswordHasher(PasswordHasher) :
                 raise ValueError
 
         password_bytes = str(password).encode('utf-8')
+        if isinstance(hashed_password , str) :
+           hashed_password = hashed_password.encode('UTF-8')
         return bcrypt.checkpw(password_bytes , hashed_password)
