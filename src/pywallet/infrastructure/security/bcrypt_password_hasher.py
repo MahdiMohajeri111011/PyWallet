@@ -1,7 +1,6 @@
 import bcrypt
 from pywallet.domain.interfaces.password_hasher import PasswordHasher
 
-
 class BcryptPasswordHasher(PasswordHasher) :
 
     def __init__(self):
