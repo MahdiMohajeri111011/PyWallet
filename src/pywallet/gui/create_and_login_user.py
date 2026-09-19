@@ -4,6 +4,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 from pywallet.gui.api_client import ApiClient
+from pywallet.gui.home_page import HomePage
 
 
 class LoginView(QWidget):
@@ -219,8 +220,26 @@ class LoginView(QWidget):
             QMessageBox.warning(self, "Error", "Password is required.")
             return
 
-        print(f"Sign In - Username: {username}, Password: {password}")
-        QMessageBox.information(self, "Success", f"Welcome back, {username}!")
+        data = {
+            "username": username,
+            "password": password
+        }
+
+        response = ApiClient.login_user(data)
+
+        if response.status_code == 200:
+
+            self.home_page = HomePage(username)
+            self.home_page.show()
+
+            self.close()
+
+        else:
+            QMessageBox.warning(
+                self,
+                "Error",
+                response.text
+            )
 
     def switch_to_signup(self):
         self.close()
@@ -393,6 +412,32 @@ class CreateUserView(QWidget):
             }
         """)
         form_layout.addWidget(self.password_entry)
+
+        # 2. Password Again
+        password_again_label = QLabel("Password Again")
+        password_again_label.setStyleSheet("""
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: bold;
+            font-family: Segoe UI;
+        """)
+        form_layout.addWidget(password_again_label)
+
+        self.password_again_entry = QLineEdit()
+        self.password_again_entry.setEchoMode(QLineEdit.Password)
+        self.password_again_entry.setStyleSheet("""
+            QLineEdit {
+                background-color: #2d3748;
+                color: #e2e8f0;
+                font-size: 16px;
+                font-family: Segoe UI;
+                padding: 14px;
+                border: none;
+                border-radius: 8px;
+                min-height: 20px;
+            }
+        """)
+        form_layout.addWidget(self.password_again_entry)
 
         # 3. First Name + Last Name (Horizontal)
         name_label = QLabel("Full Name")

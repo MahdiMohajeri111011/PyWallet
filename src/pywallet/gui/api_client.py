@@ -12,3 +12,13 @@ class ApiClient :
         )
 
         return respone
+
+    @staticmethod
+    def login_user(data):
+        response = requests.post(
+            url = f"{ApiClient.BASE_URL}/login",
+            json = data
+        )
+
+        return response
+
