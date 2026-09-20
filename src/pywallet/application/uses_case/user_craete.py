@@ -1,7 +1,6 @@
 from pywallet.domain.entities.user import User
 from pywallet.infrastructure.repositories.sqlalchemy_user_repository import SqlAlchemyUserRepository
 
-
 class CreateUser :
 
     def __init__(self , user_repository : SqlAlchemyUserRepository):

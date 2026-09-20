@@ -1,7 +1,7 @@
 from pywallet.infrastructure.repositories.sqlalchemy_user_repository import SqlAlchemyUserRepository
 from pywallet.infrastructure.security.bcrypt_password_hasher import BcryptPasswordHasher
 
-class UserLogin :
+class LoginUser :
 
     def __init__(self , user_repository : SqlAlchemyUserRepository):
         self.user_repository = user_repository
@@ -17,19 +17,11 @@ class UserLogin :
         else :
             user = self.user_repository.find_by_username(username)
 
+        if user is None :
+            raise Exception("Invalid username or password")
+
         hasher = BcryptPasswordHasher()
-        hasher.hash(password)
         if not hasher.verify(password , user.password) :
-            raise Exception
+            raise Exception("Invalid username or password")
 
         return user
-
-
-
-
-
-
-
-
-
-

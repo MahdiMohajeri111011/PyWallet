@@ -20,9 +20,11 @@ class SqlAlchemyUserRepository(UserRepository) :
         session1.add(model)
         session1.commit()
         session1.refresh(model)
-        return model
-    def find_by_id(self , user_id):
-        pass
+        return model #in ye record db hast
+
+    def find_by_email(self , username):
+        return session1.query(UserModel).filter(UserModel.username == username).first()
 
     def find_by_username(self , username):
-        pass
+        return session1.query(UserModel).filter(UserModel.username == username).first()
+

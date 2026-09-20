@@ -19,3 +19,4 @@ class UserModel(ModelBase) :
     created_at : Mapped[datetime] = mapped_column(TIMESTAMP , default = datetime.now)
     updated_at : Mapped[datetime] = mapped_column(TIMESTAMP , default= datetime.now , onupdate=datetime.now)
     is_active : Mapped[bool] = mapped_column(Boolean , default=True)
+    is_super_user : Mapped[bool] = mapped_column(Boolean , default=False)

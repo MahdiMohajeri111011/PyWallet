@@ -7,3 +7,8 @@ class CreateUserRequest(BaseModel) :
     last_name : str | None
     email : str | None
     phone_number : str | None
+
+
+class LoginUserRequest(BaseModel) :
+    username : str
+    password : str
