@@ -52,3 +52,7 @@ def login_user(request : LoginUserRequest) :
         "refresh token": refresh_token,
 
     }
+
+@router.get("/user_create")
+def test_user_create() :
+    return {"kir" : "kir"}

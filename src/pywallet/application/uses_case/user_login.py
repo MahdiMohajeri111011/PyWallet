@@ -12,10 +12,12 @@ class LoginUser :
             password
     ):
 
+
         if "@" in username :
             user = self.user_repository.find_by_email(username)
         else :
             user = self.user_repository.find_by_username(username)
+
 
         if user is None :
             raise Exception("Invalid username or password")
