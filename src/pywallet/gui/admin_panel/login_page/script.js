@@ -1,52 +1,166 @@
-const loginForm = document.getElementById("login-form");
-const errorMessage = document.getElementById("error-message");
+console.log("SCRIPT.JS LOADED");
 
-loginForm.addEventListener("submit", async function (event) {
+const loginForm =
+document.getElementById("login-form");
+
+const errorMessage =
+document.getElementById("error-message");
+
+console.log("loginForm:", loginForm);
+
+loginForm.addEventListener(
+"submit",
+async function (event) {
 
     event.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value;
+    console.log("SUBMIT EVENT FIRED");
+
+
+    const username =
+        document
+            .getElementById("username")
+            .value
+            .trim();
+
+
+    const password =
+        document
+            .getElementById("password")
+            .value;
+
+
+    console.log("Username:", username);
+
 
     errorMessage.textContent = "";
 
-    if (!username || !password) {
-        errorMessage.textContent = "Username and password are required.";
-        return;
-    }
 
     try {
 
-        const response = await fetch("/admin/login/auth", {
+        console.log(
+            "Sending request to /admin/login/auth"
+        );
 
-            method: "POST",
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+        const response =
+            await fetch(
+                "/admin/login/auth",
+                {
+                    method: "POST",
 
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        });
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-        const data = await response.json();
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                }
+            );
 
-        if (!response.ok) {
+
+        console.log(
+            "Response status:",
+            response.status
+        );
+
+
+        console.log(
+            "Response URL:",
+            response.url
+        );
+
+
+        const text =
+            await response.text();
+
+
+        console.log(
+            "Raw response:",
+            text
+        );
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(text);
+
+        } catch {
+
+            console.error(
+                "Response is NOT JSON"
+            );
+
             errorMessage.textContent =
-                data.detail || "Login failed.";
+                "Server returned invalid response.";
+
             return;
         }
 
-        console.log("Login successful:", data);
+
+        console.log(
+            "Parsed response:",
+            data
+        );
 
 
-    } catch (error) {
+        if (!response.ok) {
 
-        console.error(error);
+            errorMessage.textContent =
+                data.detail ||
+                data.message ||
+                "Login failed.";
+
+            return;
+        }
+
+
+        if (
+            data.message ===
+            "Login successful"
+        ) {
+
+            console.log(
+                "LOGIN SUCCESS"
+            );
+
+
+            console.log(
+                "Redirecting to /admin/home..."
+            );
+
+
+            window.location.href =
+                "/admin/home";
+
+
+            return;
+        }
+
+
+        errorMessage.textContent =
+            data.message ||
+            "Permission denied.";
+    }
+
+    catch (error) {
+
+        console.error(
+            "FETCH ERROR:",
+            error
+        );
+
 
         errorMessage.textContent =
             "Unable to connect to server.";
     }
-});
+}
+
+);

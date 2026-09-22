@@ -16,6 +16,7 @@ class SqlAlchemyUserRepository(UserRepository) :
             created_at = user.created_at,
             updated_at = user.updated_at,
             is_active = user.is_active,
+            is_super_user = user.is_super_user
         )
         session1.add(model)
         session1.commit()

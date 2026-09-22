@@ -6,6 +6,7 @@ from pywallet.infrastructure.repositories.sqlalchemy_user_repository import SqlA
 from pywallet.application.uses_case.user_login import LoginUser
 BASE_PATH = Path(__file__).resolve().parents[3]
 login_page_path = BASE_PATH / "gui" / "admin_panel" / "login_page" / "login.html"
+home_page_path = BASE_PATH / "gui" / "admin_panel" / "home_page" / "home.html"
 router = APIRouter()
 
 
@@ -16,16 +17,20 @@ def admin_login() :
 @router.post("/admin/login/auth")
 def admin_login_auth(request : LoginUserRequest):
     sql_alchemy_repo = SqlAlchemyUserRepository()
-    user = login_check = LoginUser(sql_alchemy_repo)
-    login_check.execute(
+    login_checker = LoginUser(sql_alchemy_repo)
+    user = login_checker.execute(
         username = request.username,
         password = request.password
     )
 
     if user.is_super_user == True :
-
         return {
-            "message" : "Login successful",
-            "username" : user.username
+            "message": "Login successful"
         }
+
+
     return f'permission denied'
+
+@router.get("/admin/home")
+def admin_home() :
+    return FileResponse(home_page_path)
